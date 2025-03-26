@@ -1,7 +1,7 @@
 /******************************************************************
  *
  *   YOUR NAME / SECTION NUMBER
- *
+ *      Philip Garbis - 002
  *   Note, additional comments provided throughout source code is
  *   for educational purposes.
  *
@@ -224,7 +224,17 @@ class BloomFilter {
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
 
-        return false;
+        if (s == null || s.isEmpty()) {
+            return false; // Avoid null or empty string errors
+        }
+        for (int n = 0; n < noHashes; n++) {
+            long hc = hashCode(s, n);
+            int bitNo = (int) (hc) & this.hashMask;
+            if (!data.get(bitNo)) {
+                return false; // If any bit is not set, the element is definitely not in the set
+            }
+        }
+        return true; // Otherwise, it is probably in the set
     }
 
 

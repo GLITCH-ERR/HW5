@@ -1,7 +1,7 @@
 /******************************************************************
  *
  *   YOUR NAME / SECTION NUMBER
- *
+ *      Philip Garbis - 002
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
  *   these methods.
@@ -33,8 +33,18 @@ class ProblemSolutions {
     public boolean isSubset(int list1[], int list2[]) {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
-
-        return false;
+        // Use a HashSet to store elements of list1 for quick lookup
+        Set<Integer> set = new HashSet<>();
+        for (int num : list1) {
+            set.add(num);
+        }
+        // Check if all elements in list2 exist in the set
+        for (int num : list2) {
+            if (!set.contains(num)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -54,8 +64,15 @@ class ProblemSolutions {
     public int findKthLargest(int[] array, int k) {
 
         // ADD YOUR CODE HERE
-
-        return 0;
+        // Use a min-heap (PriorityQueue) to keep track of the k largest elements
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : array) {
+            minHeap.offer(num); // Insert the element into the heap
+            if (minHeap.size() > k) {
+                minHeap.poll(); // Remove the smallest element if heap size exceeds k
+            }
+        }
+        return minHeap.peek(); // The kth largest element is now at the root of the heap
     }
 
 
@@ -75,8 +92,15 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // ADD YOU CODE HERE
+        // Create a merged array with space for both arrays
+        int[] merged = new int[array1.length + array2.length];
+        System.arraycopy(array1, 0, merged, 0, array1.length);
+        System.arraycopy(array2, 0, merged, array1.length, array2.length);
+        
+        // Sort the merged array
+        Arrays.sort(merged);
+        return merged;
 
-        return null;
     }
 
 }
